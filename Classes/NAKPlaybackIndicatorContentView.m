@@ -7,6 +7,7 @@
 //
 
 #import "NAKPlaybackIndicatorContentView.h"
+#import <objc/message.h>
 
 static const NSInteger kBarCount = 3;
 
@@ -30,6 +31,7 @@ static NSString* const kDecayAnimationKey = @"decay";
 @interface NAKPlaybackIndicatorContentView ()
 
 @property (nonatomic, readonly) NSArray* barLayers;
+@property (nonatomic, strong) UIColor *tintColor;
 @property (nonatomic, assign) BOOL hasInstalledConstraints;
 
 @end
@@ -42,12 +44,29 @@ static NSString* const kDecayAnimationKey = @"decay";
 {
     self = [super init];
     if (self) {
-        self.translatesAutoresizingMaskIntoConstraints = NO;
-        [self prepareBarLayers];
-        [self tintColorDidChange];
-        [self setNeedsUpdateConstraints];
+        [self setUp];
     }
     return self;
+}
+
+- (void)setUp
+{
+    unsigned int numberOfMethods;
+    Method *methods = class_copyMethodList([UIView class], &numberOfMethods);
+    for (unsigned int i = 0; i < numberOfMethods; i++) {
+        Method method = methods[i];
+        SEL selector = method_getName(method);
+        if (selector == @selector(tintColor)) {
+            self.tintColor = ((id (*)(id,SEL))method_getImplementation(method))(self, selector);
+            break;
+        }
+    }
+    free(methods);
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    [self prepareBarLayers];
+    [self tintColorDidChange];
+    [self setNeedsUpdateConstraints];
 }
 
 - (void)prepareBarLayers
@@ -86,6 +105,12 @@ static NSString* const kDecayAnimationKey = @"decay";
 }
 
 #pragma mark - Tint Color
+
+- (void)setTintColor:(UIColor *)tintColor
+{
+    _tintColor = tintColor;
+    [self tintColorDidChange];
+}
 
 - (void)tintColorDidChange
 {

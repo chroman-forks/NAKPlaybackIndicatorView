@@ -73,4 +73,9 @@ typedef NS_ENUM(NSInteger, NAKPlaybackIndicatorViewState) {
  */
 @property (nonatomic, assign) BOOL hidesWhenStopped;
 
+/**
+ *  A UIColor propery
+ */
+@property (nonatomic, strong) UIColor *tintColor;
+
 @end

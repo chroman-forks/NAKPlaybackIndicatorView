@@ -7,7 +7,7 @@
 //
 
 #import "DMMusicViewController.h"
-#import <NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.h>
+#import "NAKPlaybackIndicatorView.h"
 #import "DMMusicPlayerController.h"
 #import "DMMediaItem.h"
 #import "DMSongCell.h"
@@ -86,7 +86,7 @@
 
     [self updateRightBarButtonItem];
 
-    self.tableView.separatorInset = UIEdgeInsetsMake(0.0, 15.0, 0.0, 15.0);
+    //self.tableView.separatorInset = UIEdgeInsetsMake(0.0, 15.0, 0.0, 15.0);
 }
 
 - (void)dealloc

@@ -32,6 +32,7 @@ static const CGFloat kPlaybackDurationLabelRightSpacing = 8.0;
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         _playbackIndicatorView = [[NAKPlaybackIndicatorView alloc] init];
+        _playbackIndicatorView.tintColor = [UIColor redColor];
         _playbackIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:_playbackIndicatorView];
 

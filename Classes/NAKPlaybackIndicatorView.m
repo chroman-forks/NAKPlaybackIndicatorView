@@ -43,6 +43,7 @@
     self.layer.masksToBounds = YES;
 
     _contentView = [[NAKPlaybackIndicatorContentView alloc] init];
+    //_contentView.tintColor = [UIColor orangeColor];
     [self addSubview:_contentView];
 
     [self prepareLayoutPriorities];
@@ -145,6 +146,12 @@
         }
         self.hidden = NO;
     }
+}
+
+- (void)setTintColor:(UIColor *)tintColor
+{
+    _tintColor = tintColor;
+    self.contentView.tintColor = _tintColor;
 }
 
 #pragma mark - Helpers
